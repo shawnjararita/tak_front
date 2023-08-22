@@ -1,0 +1,62 @@
+NOTE:
+1st
+-->frontend (done)
+	npm run build
+
+-->backend (done)
+	npm i dotenv cors
+
+• in "app.js" (done)
+	import dotenv from "dotenv/config"
+	import cors from "cors"
+
+	const dbUrl = process.env.MONGO_URI
+	app.listen(process.env.PORT ...
+
+	const corsOptions = {
+	    origin: ["http://localhost:3000", "<render_frontend _path>"]}
+
+	app.use(cors(corsOptions))
+
+• create .env file (done)
+	PORT=4000
+	MONGO_URI=mongodb+srv://shawnjararita:ararita%232222@cluster0-skj.4omec.mongodb.net/tak?retryWrites=true&w=majority
+
+• add to .gitignore (done)
+	.env
+
+PACKAGE.JSON	 
+front
+=====
+npm run dev
+npm run build	(npm build?)
+
+back
+====
+node app.js
+*npm start	(i.e. node App.js; same as: npm run start)
+npm run dev	(i.e. nodemon App.js)
+npm build	(i.e. npm install)
+
+GITHUB
+• git init
+• create file at root: .gitignore
+  add:	dist/
+	node_modules/
+	.env
+	.vscode
+
+--> git rm -r --cached .							(...because I deleted last repository)
+• git add .									(add all the files to the staging area)
+• git status
+• git commit –m ‘initial commit’
+• git push						(commit the changes)
+... to push an existing repository from the cmd line
+--> git remote add origin https://github.com/shawnjararita/tak_front.git	(add your GitHub repository as a remote using)
+--> git branch -M main								(rename master branch to main branch)
+--> git push -u origin main 							(push your code to the repository )
+
+ORIG GPA PROGRAM
+const secret = process.env.SECRET || 'thisShouldBeASecret'
+const dbUrl = process.env.MONGO_URI || 'mongodb://localhost:27017/gpaSolveIt'
+const server = app.listen(process.env.PORT,...
