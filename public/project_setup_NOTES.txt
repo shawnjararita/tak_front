@@ -2,6 +2,7 @@ NOTES (do first):
 
 -->frontend (done)
 	npm run build
+• add to tak_front: build (folder)
 
 -->backend (done)
 	npm i dotenv cors
@@ -75,7 +76,7 @@ start command:	npm start
 • setup frontend
 name:		tak_game_mern_frontend
 build command:	npm run build
-start command:	npm run dev
+publish dir:	dist
 -->copy new render.com URL and add it to backend files: 
 -->do Github commit steps
 
