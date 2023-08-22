@@ -259,7 +259,8 @@ function LaunchGame() {
         if (deleteGameId) {
             try {
                 const res = await axios({
-                    url: '/takGame/delete',
+                    // url: '/takGame/delete',
+                    url: 'https://tak-game-mern.onrender.com/takGame/delete',
                     method: 'POST',  // skj, yes...using POST to delete
                     data: JSON.stringify(deleteGameId),
                     headers: {
@@ -280,7 +281,8 @@ function LaunchGame() {
         // start new tak game an add _id to state
         try {
             const res = await axios({
-                url: '/takGame',
+                // url: '/takGame',
+                url: 'https://tak-game-mern.onrender.com/takGame',
                 method: 'POST'
             })
             if (res) {
@@ -301,7 +303,8 @@ function LaunchGame() {
 
         try {
             const res = await axios({
-                url: `/takGame/${id}`,
+                // url: `/takGame/${id}`,
+                url: `https://tak-game-mern.onrender.com/takGame/${id}`,
                 method: 'GET'
             })
             if (res) {

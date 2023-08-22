@@ -150,7 +150,8 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
             try {
                 if (updatedSpacesCombo) {
                     const res = await axios({
-                        url: `/takGame/${takGameId}`,
+                        // url: `/takGame/${takGameId}`,
+                        url: `https://tak-game-mern.onrender.com/takGame/${takGameId}`,
                         method: 'PUT',
                         data: JSON.stringify(updatedSpacesCombo),
                         headers: {
@@ -209,7 +210,8 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
             try {
                 if (updatedSpacesCombo) {
                     const res = await axios({
-                        url: `/takGame/${takGameId}`,
+                        // url: `/takGame/${takGameId}`,
+                        url: `https://tak-game-mern.onrender.com/takGame/${takGameId}`,
                         method: 'PUT',
                         data: JSON.stringify(updatedSpacesCombo),
                         headers: {
@@ -272,7 +274,8 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
                     try {
                         if (updatedSpaces) {
                             const res = await axios({
-                                url: `/takGame/${takGameId}`,
+                                // url: `/takGame/${takGameId}`,
+                                url: `https://tak-game-mern.onrender.com/takGame/${takGameId}`,
                                 method: 'PUT',
                                 data: JSON.stringify(updatedSpaces),
                                 headers: {

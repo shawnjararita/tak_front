@@ -1,5 +1,5 @@
-NOTE:
-1st
+NOTES (do first):
+
 -->frontend (done)
 	npm run build
 
@@ -25,7 +25,8 @@ NOTE:
 • add to .gitignore (done)
 	.env
 
-PACKAGE.JSON	 
+-------------------------------------------------------------
+PACKAGE.JSON (done)	 
 front
 =====
 npm run dev
@@ -36,8 +37,9 @@ back
 node app.js
 *npm start	(i.e. node App.js; same as: npm run start)
 npm run dev	(i.e. nodemon App.js)
-npm build	(i.e. npm install)
+npm run build	(i.e. npm install)
 
+-------------------------------------------------------------
 GITHUB
 • git init
 • create file at root: .gitignore
@@ -56,7 +58,30 @@ GITHUB
 --> git branch -M main								(rename master branch to main branch)
 --> git push -u origin main 							(push your code to the repository )
 
+-------------------------------------------------------------
+render.com
+name:		tak_game_mern
+build command:	npm run build
+start command:	npm start
+-->Advanced (drop-down)
+	Key: MONGO_URI	Value: <mongo link>
+	Key: PORT	Value: 4000
+-->Create Web Service
+-->copy new render.com URL and add it to frontend files: https://tak-game-mern.onrender.com
+-->do Github commit steps
+
+
+
+
+
+
+
+
+-------------------------------------------------------------
 ORIG GPA PROGRAM
 const secret = process.env.SECRET || 'thisShouldBeASecret'
 const dbUrl = process.env.MONGO_URI || 'mongodb://localhost:27017/gpaSolveIt'
 const server = app.listen(process.env.PORT,...
+
+
+os.getenv() in Python or process.env in Node
