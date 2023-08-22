@@ -30,7 +30,7 @@ PACKAGE.JSON (done)
 front
 =====
 npm run dev
-npm run build	(npm build?)
+npm run build
 
 back
 ====
@@ -60,6 +60,8 @@ GITHUB
 
 -------------------------------------------------------------
 render.com
+==========
+• setup backend
 name:		tak_game_mern
 build command:	npm run build
 start command:	npm start
@@ -70,9 +72,12 @@ start command:	npm start
 -->copy new render.com URL and add it to frontend files: https://tak-game-mern.onrender.com
 -->do Github commit steps
 
-
-
-
+• setup frontend
+name:		tak_game_mern_frontend
+build command:	npm run build
+start command:	npm run dev
+-->copy new render.com URL and add it to backend files: 
+-->do Github commit steps
 
 
 
