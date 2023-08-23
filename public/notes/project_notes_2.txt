@@ -1,0 +1,30 @@
+number: 100	2nd move / createPiece()
+number: 0	empty stack / add piece-handleClickSquare(e)
+number: 98	reached max pieces
+number: 99	click on pieces/not square
+
+[ { space: 'X5', x: 1, y: 5, pieces: [], activeSpace: false, moveSquare: false }, ]
+{ source: '', space: '', number: undefined, piecesToMove: [] }
+ 
+-->handleClickSquare(e)			CLICK ON SPACE
+	setSpaces(updatedSpace)		• *addPiece		(axios done)
+	setSpaces(activateSpace)	• make space active	(for TakSpaceDisplay)
+----------------------------
+	setSpaces(activateSpace)	• 1st_piece_move
+   -->movePieces()
+	setSpaces(updatedSpacesCombo)	• *moveSquare edit	(axios done)
+-----------------------------
+	setSpaces(activateSpace)	• 2nd+_piece_move
+   -->movePiecesSecondSquare()
+	setSpaces(updatedSpacesCombo)	• *moveSquare edit
+
+
+-->handleNumberPieceMoveClick(e)		CLICK ON PIECES
+	setSpaces(updatedSpaces)	• peices_removed_from_source_space
+
+
+1. add axios delete request to 'Start New Game' and ???
+
+
+
+

@@ -1,0 +1,41 @@
+const useOnPageLeave = (handler) => {
+    useEffect(() => {
+
+        window.onbeforeunload = undefined;
+        window.addEventListener('beforeunload', (event) => {             //When they leave the site
+            event.preventDefault();                                     // Cancel the event as stated by the standard.
+            handler();
+        });
+
+        return () => {
+            handler();                                                 //When they visit another local link
+            document.removeEventListener('beforeunload', handler);
+        };
+    }, []);
+};
+
+------------------------------------------
+
+const useOnPageLeave = (handler) => {
+  useEffect(() => {
+    window.onbeforeunload = () => handler();
+
+    window.addEventListener('beforeunload', (event) => {
+      handler();
+    });
+
+    return () => {
+      handler();
+      document.removeEventListener('beforeunload', handler);
+    };
+  });
+};
+
+-----------------------------------------------
+
+
+64e388e25dcc2b2c13ae40cd
+64e388f95dcc2b2c13ae41d3 new
+
+64e387dc45de887444c69c52
+ new

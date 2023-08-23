@@ -16,7 +16,6 @@
   display: flex;
   justify-content: center;
   border: 5px;
-  /* background-color: cornflowerblue; */
 }
 
 
@@ -28,7 +27,6 @@
   grid-template-rows: repeat(5, 175px);
   grid-auto-flow: column;
   margin-bottom: 1em;
-  /* background-image: url('good_wood_1.svg'); */
 }
 
 
@@ -37,14 +35,13 @@
   font-size: 65%;
   text-align: center;
   align-items: center;
-  color: darkblue;
-  /* background-color: lightgrey; */
-  /* border: 1px solid black; */
+  color: black;
+  border: 1px solid black;
   border-radius: 2px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background-image: url('bamboo_sm.svg');
+  background-image: url('../bamboo_sm.svg');
 }
 
 
@@ -54,13 +51,14 @@
   font-size: 65%;
   text-align: center;
   align-items: center;
-  color: darkblue;
+  color: black;
   background-color: lightgrey;
   border: 4px solid black;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  background-image: url('../bamboo_sm_lt.svg');
 }
 
 
@@ -74,7 +72,6 @@
   border-right: 2px solid black;
   border-left: 2px solid black; */
   color: black;
-  /* background-color: beige; */
   background-image: url('../wood_flat_sm_lt.svg');
 }
 
@@ -87,7 +84,6 @@
   border-right: 2px solid black;
   border-left: 2px solid black; */
   color: white;
-  /* background-color: black; */
   background-image: url('../wood_flat_sm_dk.svg');
 }
 
@@ -104,7 +100,6 @@
   border-right: 1px solid black;
   border-left: 1px solid black; */
   color: black;
-  /* background-color: beige; */
   background-image: url('../wood_wall_sm_lt.svg');
 }
 
@@ -121,7 +116,6 @@
   border-right: 1px solid black;
   border-left: 1px solid black; */
   color: white;
-  /* background-color: black; */
   background-image: url('../wood_wall_sm_dk.svg');
 }
 
@@ -139,7 +133,6 @@
   border-right: 1px solid black;
   border-left: 1px solid black; */
   color: black;
-  /* background-color: beige; */
   background-image: url('../wood_cap_sm_lt.svg');
 }
 
@@ -157,7 +150,6 @@
   border-right: 1px solid black;
   border-left: 1px solid black; */
   color: white;
-  /* background-color: black; */
   background-image: url('../wood_cap_sm_dk.svg');
 }
 
@@ -185,85 +177,89 @@
 .displaySpanWF {
   text-align: center;
   font-size: small;
-  width: 9em;
-  border-bottom: 1px solid black;
+  width: 7em;
+  /* border-bottom: 1px solid black;
   border-top: 1px solid black;
   border-right: 2px solid black;
-  border-left: 2px solid black;
-  color: darkblue;
-  background-color: beige;
+  border-left: 2px solid black; */
+  color: black;
+  background-image: url('../wood_flat_sm_lt.svg');
 }
 
 .displaySpanBF {
   text-align: center;
   font-size: small;
-  width: 9em;
-  border-bottom: 1px solid black;
+  width: 7em;
+  /* border-bottom: 1px solid black;
   border-top: 1px solid black;
   border-right: 2px solid black;
-  border-left: 2px solid black;
+  border-left: 2px solid black; */
   color: beige;
-  background-color: black;
+  background-image: url('../wood_flat_sm_dk.svg');
 }
 
 .displaySpanWW {
-  width: 3em;
-  height: 5em;
-  line-height: 5em;
-  vertical-align: middle;
+  width: 1.85em;
+  height: 2.80em;
+  line-height: 1.95em;
+  vertical-align: top;
   text-align: center;
   font-size: small;
-  border-bottom: 1px solid black;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  /* border-bottom: 1px solid black;
   border-top: 1px solid black;
   border-right: 2px solid black;
-  border-left: 2px solid black;
-  color: darkblue;
-  background-color: beige;
+  border-left: 2px solid black; */
+  color: black;
+  background-image: url('../wood_wall_sm_lt.svg');
 }
 
 .displaySpanBW {
-  width: 3em;
-  height: 5em;
-  line-height: 5em;
-  vertical-align: middle;
+  width: 1.85em;
+  height: 2.70em;
+  line-height: 1.95em;
+  vertical-align: top;
   text-align: center;
   font-size: small;
-  border-bottom: 1px solid black;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  /* border-bottom: 1px solid black;
   border-top: 1px solid black;
   border-right: 2px solid black;
-  border-left: 2px solid black;
+  border-left: 2px solid black; */
   color: beige;
-  background-color: black;
+  background-image: url('../wood_wall_sm_dk.svg');
 }
 
 .displaySpanWC {
   border-radius: 50%;
-  width: 3em;
-  height: 3em;
-  line-height: 3em;
+  width: 2.7em;
+  height: 2.75em;
+  line-height: 2.9em;
   vertical-align: middle;
   text-align: center;
   font-size: small;
-  border-bottom: 1px solid black;
+  /* border-bottom: 1px solid black;
   border-top: 1px solid black;
   border-right: 2px solid black;
-  border-left: 2px solid black;
-  color: darkblue;
-  background-color: beige;
+  border-left: 2px solid black; */
+  color: black;
+  background-image: url('../wood_cap_sm_lt.svg');
 }
 
 .displaySpanBC {
   border-radius: 50%;
-  width: 3em;
-  height: 3em;
-  line-height: 3em;
+  width: 2.7em;
+  height: 2.75em;
+  line-height: 2.7em;
   vertical-align: middle;
   text-align: center;
   font-size: small;
-  border-bottom: 1px solid black;
+  /* border-bottom: 1px solid black;
   border-top: 1px solid black;
   border-right: 2px solid black;
-  border-left: 2px solid black;
+  border-left: 2px solid black; */
   color: beige;
-  background-color: black;
+  background-image: url('../wood_cap_sm_dk.svg');
 }
