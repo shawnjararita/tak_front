@@ -1,5 +1,6 @@
 number: 100	2nd move / createPiece()
 number: 0	empty stack / add piece-handleClickSquare(e)
+number: 97	capstone already on board
 number: 98	reached max pieces
 number: 99	click on pieces/not square
 

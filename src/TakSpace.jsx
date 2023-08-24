@@ -40,10 +40,10 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
         let space
         spaces.map((sp, i) => { if (sp.activeSpace === true) { space = sp.space } })
 
-        if ((pieceMoveAndCount.number > 0 && pieceMoveAndCount.number < 97) && (pieceMoveAndCount.number === pieceMoveAndCount.piecesToMove.length)) {
+        if ((pieceMoveAndCount.number > 0 && pieceMoveAndCount.number < 96) && (pieceMoveAndCount.number === pieceMoveAndCount.piecesToMove.length)) {
             setDisplayMessage(`You have selected ${pieceMoveAndCount.number} pieces from ${space}`)
         }
-        if ((pieceMoveAndCount.number > 0 && pieceMoveAndCount.number < 97) && (pieceMoveAndCount.piecesToMove.length < 1)) {
+        if ((pieceMoveAndCount.number > 0 && pieceMoveAndCount.number < 96) && (pieceMoveAndCount.piecesToMove.length < 1)) {
             setGameState((obj) => { return { ...obj, whiteTurn: !gameState.whiteTurn } })
             setDisplayMessage('You have placed the last piece in the move stack')
         }
@@ -64,16 +64,15 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
     function createPiece(type) {
         // createPiece() determines the piece color using gameState.whiteTurn, creates an "currentPiecesArray" to determine piece number, then creates the piece using the TakPiece class 
         let curentPiecesArray = ['x']
-        let currentPieces
         let blackPiecesArray = []
         let whitePiecesArray = []
+        let currentPieces
 
-        // we map the existing pieces to determine which # piece to create
+        // we map the existing pieces to determine which # piece to create (NOTE: this 'create_color_arrays' code is duplicated in handleClickSquare() function)
         spaces.map((obj, i) => {
             const pieces = obj.pieces
             curentPiecesArray.push(...pieces)
         })
-
         blackPiecesArray = curentPiecesArray.filter((code) => { return code.charAt(0) === 'B' })
         whitePiecesArray = curentPiecesArray.filter((code) => { return code.charAt(0) === 'W' })
         // console.log('Black Pieces Array', blackPiecesArray)
@@ -145,7 +144,7 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
         })
 
         const updatedSpacesCombo = determineMoveSecondSquares(updatedSpaces, pieceMoveAndCount, spaceFound)
-        // --------------------------------------------------------------------------------------------------
+        // -- write to MongoDB ------------------------------------------------------------------------------------------------
         if (takGameId) {
             try {
                 if (updatedSpacesCombo) {
@@ -205,7 +204,7 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
         })
 
         const updatedSpacesCombo = determineMoveSecondSquares(updatedSpaces, pieceMoveAndCount, spaceFound)
-        // --------------------------------------------------------------------------------------------------
+        // -- write to MongoDB  ------------------------------------------------------------------------------------------------
         if (takGameId) {
             try {
                 if (updatedSpacesCombo) {
@@ -241,6 +240,23 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
         const spaceFound = spaces.find((obj) => obj.space === spaceId)
         let sourcePieces
 
+        // we map the existing pieces to determine if the capstone is on the board (NOTE: this same 'create_color_array' code exists in the createPiece() function)
+        let curentPiecesArray = ['x']
+        let blackPiecesArray = []
+        let whitePiecesArray = []
+
+        spaces.map((obj, i) => {
+            const pieces = obj.pieces
+            curentPiecesArray.push(...pieces)
+        })
+        blackPiecesArray = curentPiecesArray.filter((code) => { return code.charAt(0) === 'B' })
+        whitePiecesArray = curentPiecesArray.filter((code) => { return code.charAt(0) === 'W' })
+        let blackCapBool = blackPiecesArray.map((piece) => piece.slice(1, 2)).some((p) => p === 'C') && pieceType === 'capstone'
+        let whiteCapBool = whitePiecesArray.map((piece) => piece.slice(1, 2)).some((p) => p === 'C') && pieceType === 'capstone'
+        // console.log('Black Cap?', blackCapBool)
+        // console.log('White Cap?', whiteCapBool)
+        /// --------------------------------------------------------------------------------------------------
+
         if (spaceFound) {
             let legalMove = spaceFound.moveSquare
             let numberSquarePieces = spaceFound.pieces.length
@@ -251,10 +267,16 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
             let whitesTurn = gameState.whiteTurn
             let blacksTurn = !gameState.whiteTurn
 
+            // // "Your one capstone is already on the board"
+            if (blacksTurn && blackCapBool || whitesTurn && whiteCapBool) {
+                setPieceMoveAndCount((obj) => { return { source: '', space: '', number: 97, piecesToMove: [] } })
+                setDisplayMessage('Your color\'s Capstone \n is already on the board')
+            }
+
             // add a piece (an empty space with no 'active' move stack affiliation and no maxPieces)
-            if (numberSquarePieces === 0 && stackSize === 0 && (!blackMax && blacksTurn || !whiteMax && whitesTurn)
+            if (numberSquarePieces === 0 && stackSize === 0 && (!blackMax && !blackCapBool && blacksTurn || !whiteMax && !whiteCapBool && whitesTurn)
                 ||
-                numberSquarePieces === 0 && moveNumber === stackSize && legalMove === false && (!blackMax && blacksTurn || !whiteMax && whitesTurn)
+                numberSquarePieces === 0 && moveNumber === stackSize && legalMove === false && (!blackMax && !blackCapBool && blacksTurn || !whiteMax && !whiteCapBool && whitesTurn)
             ) {
                 setPieceMoveAndCount((obj) => { return { source: '', space: '', number: 0, piecesToMove: [] } })
 
@@ -269,7 +291,7 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
                 })
                 setDisplayMessage('')
                 setGameState((obj) => { return { ...obj, whiteTurn: blacksTurn } })
-                // --------------------------------------------------------------------------------------------------
+                // -- write to MongoDB ------------------------------------------------------------------------------------------------
                 if (takGameId && moveNumber) { // I had to add moveNumber=true because it would do this before createPiece()-->8 lines above (if I did not add a console.log() on top of new TakPiece('black', 'flat', 1) wtf-??); the create 1st piece function sets moveNumber=100
                     try {
                         if (updatedSpaces) {
@@ -292,6 +314,7 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
                 } else { setSpaces(updatedSpaces) }
             }
             // --------------------------------------------------------------------------------------------------
+
             // "Reached Max Pieces!" (maxPieces=true when attempting to add a piece on an empty space with no 'active' move stack affiliation)
             if (numberSquarePieces === 0 && stackSize === 0 && (blackMax && blacksTurn || whiteMax && whitesTurn)
                 ||
@@ -301,9 +324,10 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
                 setDisplayMessage('You have reached the maximum of 21 pieces!')
             }
 
-            // "this square already has pieces, select piece to move"
+            // "this square already has pieces, select piece to move" & activates square for TakSpaceDisplay
             if (numberSquarePieces > 0 &&
-                (moveNumber === 0 || moveNumber === 99 || moveNumber === undefined || (moveNumber > 0 && moveNumber < 97) && stackSize === 0)
+                // (moveNumber === 0 || moveNumber === 99 || moveNumber === undefined || (moveNumber > 0 && moveNumber < 96) && stackSize === 0)  // skj 8-24-2023 DELETE
+                (moveNumber === 0 || moveNumber === undefined || (moveNumber > 0 && moveNumber < 96) && stackSize === 0)
             ) {
                 let topSquarePiece = spaceFound?.pieces[spaceFound.pieces.length - 1].charAt(0)
                 // To move a piece, the top piece color must be the current player's color
@@ -341,7 +365,7 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
             }
 
             // second piece move (+number: > +pieces_to_move)
-            if ((moveNumber > 0 && moveNumber < 97) && stackSize > 0 && moveNumber > stackSize) {
+            if ((moveNumber > 0 && moveNumber < 96) && stackSize > 0 && moveNumber > stackSize) {
                 const activateSpace = spaces.map((obj) => {
                     if (obj.space === spaceId) { return { ...obj, activeSpace: true } }
                     else { return { ...obj, activeSpace: false } }

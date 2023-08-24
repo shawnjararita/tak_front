@@ -48,28 +48,32 @@ function handleClickSquare(e)
  let space = e.target.id
  const spaceFound = spaces.find((obj) => obj.space === space)
 
-A1. if (spaceFound.pieces.length < 1 && pieceMoveAndCount.piecesToMove.length < 1)
+A1. if (color'sTurn && color'sCapBool=true)
+--> setPieceMove&Count=#97
+--> setDisplayMessage('Your color's Capstone is already on the board')
+
+A2. if (spaceFound.pieces.length < 1 && pieceMoveAndCount.piecesToMove.length < 1)
 --> setPieceMove&Count=#0
 • createPiece & code
 --> add new piece to space.pieces array / activate space
 --> setDisplayMessage('')
 --> setFirstPlayerTurn(!firstPlayerTurn)
 
-A2. if (empty space & reached max pieces)
+A3. if (empty space & reached max pieces)
 --> setPieceMove&Count=#98
 --> setDisplayMessage('You have reached the maximum of 21 pieces!')
 
-A3. if (spaceFound.pieces.length > 0 && (pieceMoveAndCount.number === 0 || pieceMoveAndCount.number === 99 || pieceMoveAndCount.number === undefined))
+A4. if (spaceFound.pieces.length > 0 && (pieceMoveAndCount.number === 0 || pieceMoveAndCount.number === 99 || pieceMoveAndCount.number === undefined))
 --> setPieceMove&Count=#99
 --> activate space	(used just to set the square active for TakSpaceDisplay)
 --> setDisplayMessage	('Click the bottom-most piece you want to move')
 
-A4. if (pieceMoveAndCount.number > 0 && pieceMoveAndCount.piecesToMove.length > 0 && (pieceMoveAndCount.number === pieceMoveAndCount.piecesToMove.length))
+A5. if (pieceMoveAndCount.number > 0 && pieceMoveAndCount.piecesToMove.length > 0 && (pieceMoveAndCount.number === pieceMoveAndCount.piecesToMove.length))
 --> activate space
 --> movePieces()
 --> setDisplayMessage()
 
-A5. if (pieceMoveAndCount.number > 0 && pieceMoveAndCount.piecesToMove.length > 0 && (pieceMoveAndCount.number > pieceMoveAndCount.piecesToMove.length))
+A6. if (pieceMoveAndCount.number > 0 && pieceMoveAndCount.piecesToMove.length > 0 && (pieceMoveAndCount.number > pieceMoveAndCount.piecesToMove.length))
 --> activate space
 --> movePiecesSecondSquare()
 --> setDisplayMessage()

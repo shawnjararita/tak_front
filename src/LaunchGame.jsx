@@ -343,6 +343,7 @@ function LaunchGame() {
                 <div>
                     {spaces && <p>{spaces[0].space}</p>}
                     {<span>gameId: {takGameId && <span>{takGameId}</span>}</span>}
+                    {<p>Active Piece Type: {pieceType}</p>}
                     <p>Piece Move & Count</p>
                     {<p>source: {pieceMoveAndCount.source}</p>}
                     {<p>space: {pieceMoveAndCount.space}</p>}
