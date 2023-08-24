@@ -1,12 +1,30 @@
+[ { space: 'X5', x: 1, y: 5, pieces: [], activeSpace: false, moveSquare: false }, ]
+{ source: '', space: '', number: undefined, piecesToMove: [] }
+
 number: 100	2nd move / createPiece()
 number: 0	empty stack / add piece-handleClickSquare(e)
 number: 97	capstone already on board
 number: 98	reached max pieces
 number: 99	click on pieces/not square
 
-[ { space: 'X5', x: 1, y: 5, pieces: [], activeSpace: false, moveSquare: false }, ]
-{ source: '', space: '', number: undefined, piecesToMove: [] }
- 
+
+8-24-2023 edits (in backups)
+===============
+• deleted the following code from 2 sections: 
+	1. handleClickSquare()'s // first piece move (+number: = +pieces_to_move)
+	2. handleClickSquare()'s // second piece move (+number: > +pieces_to_move)
+                // const activateSpace = spaces.map((obj) => {
+                //     if (obj.space === spaceId) { return { ...obj, activeSpace: true } }
+                //     else { return { ...obj, activeSpace: false } }
+                // })
+                // setSpaces(activateSpace)
+
+• removed the following code from the top if() section of:
+	1. handleClickSquare()'s // "this square already has pieces, select piece to move" & activates square for TakSpaceDisplay
+	        || moveNumber === 99
+
+axios backend additions
+======================= 
 -->handleClickSquare(e)			CLICK ON SPACE
 	setSpaces(updatedSpace)		• *addPiece		(axios done)
 	setSpaces(activateSpace)	• make space active	(for TakSpaceDisplay)
@@ -17,14 +35,12 @@ number: 99	click on pieces/not square
 -----------------------------
 	setSpaces(activateSpace)	• 2nd+_piece_move
    -->movePiecesSecondSquare()
-	setSpaces(updatedSpacesCombo)	• *moveSquare edit
+	setSpaces(updatedSpacesCombo)	• *moveSquare edit	(axios done)
 
 
 -->handleNumberPieceMoveClick(e)		CLICK ON PIECES
 	setSpaces(updatedSpaces)	• peices_removed_from_source_space
 
-
-1. add axios delete request to 'Start New Game' and ???
 
 
 

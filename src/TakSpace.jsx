@@ -118,9 +118,6 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
         let sourcePieces = [...pieces]
         let destinationPieces = [...spaceFound.pieces]
         let removedPieces = [...sourcePieces.splice(sourcePieces.length - piecesPickedUp)]
-        // console.log('source-1:', sourcePieces)  //skj 8-15-2023 (test)
-        // console.log('dest-1:', destinationPieces)  //skj 8-15-2023 (test)
-        // console.log('remvd-1:', removedPieces)  //skj 8-15-2023 (test)
 
         // if the top source piece is a capstone, and the top destination piece a wall, make it flat
         let topRemoved = removedPieces[removedPieces.length - 1].slice(1, 2)
@@ -132,7 +129,6 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
             destinationPieces.pop()
             destinationPieces.push(flatWall)
         }
-        // console.log('topRemvd:', topRemoved, 'topDest:', topDestination)  // skj 8-15-2023 (test)
         // console.log('removedPieces_mf(1) :', removedPieces)
 
         destinationPieces.push(removedPieces.shift())  // move 1 piece
@@ -179,9 +175,6 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
         let stackPieces = [...piecesToMove]
         let destinationPieces = [...spaceFound.pieces]
         let removedPiece = [stackPieces.shift()]
-        // console.log('stack-2:', stackPieces)  //skj 8-15-2023 (test)
-        // console.log('dest-2:', destinationPieces)  //skj 8-15-2023 (test)
-        // console.log('remvd-2:', removedPiece)  //skj 8-15-2023 (test)
 
         // if the top source piece is a capstone, and the top destination piece a wall, make it flat
         let topRemoved = removedPiece[removedPiece.length - 1].slice(1, 2)
@@ -193,7 +186,6 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
             destinationPieces.pop()
             destinationPieces.push(flatWall)
         }
-        // console.log('topRemvd:', topRemoved, 'topDest:', topDestination)  // skj 8-15-2023 (test)
         // console.log('removedPiece_mf(2) :', removedPiece)
 
         destinationPieces.push(removedPiece.shift())  // move 1 piece
@@ -326,7 +318,6 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
 
             // "this square already has pieces, select piece to move" & activates square for TakSpaceDisplay
             if (numberSquarePieces > 0 &&
-                // (moveNumber === 0 || moveNumber === 99 || moveNumber === undefined || (moveNumber > 0 && moveNumber < 96) && stackSize === 0)  // skj 8-24-2023 DELETE
                 (moveNumber === 0 || moveNumber === undefined || (moveNumber > 0 && moveNumber < 96) && stackSize === 0)
             ) {
                 let topSquarePiece = spaceFound?.pieces[spaceFound.pieces.length - 1].charAt(0)
@@ -349,11 +340,6 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
 
             // first piece move (+number: = +pieces_to_move)
             if (moveNumber > 0 && stackSize > 0 && moveNumber === stackSize && legalMove === true) {
-                const activateSpace = spaces.map((obj) => {
-                    if (obj.space === spaceId) { return { ...obj, activeSpace: true } }
-                    else { return { ...obj, activeSpace: false } }
-                })
-                setSpaces(activateSpace)
 
                 spaces.map((obj) => {
                     if (obj.space === pieceMoveAndCount.space) {
@@ -366,11 +352,6 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
 
             // second piece move (+number: > +pieces_to_move)
             if ((moveNumber > 0 && moveNumber < 96) && stackSize > 0 && moveNumber > stackSize) {
-                const activateSpace = spaces.map((obj) => {
-                    if (obj.space === spaceId) { return { ...obj, activeSpace: true } }
-                    else { return { ...obj, activeSpace: false } }
-                })
-                setSpaces(activateSpace)
                 movePiecesSecondSquare(pieceMoveAndCount.piecesToMove, spaceId, spaceFound)
                 setDisplayMessage(`You have moved from ${pieceMoveAndCount.space} to ${spaceId}`)
             }
@@ -440,8 +421,8 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
                 className={(sp.moveSquare) ? 'takSpaceBold' : 'takSpace'}
                 id={sp.space}
                 key={i}
-                onClick={pieceMoveAndCount.piecesToMove.length > 0 // skj 6-5-2023
-                    && pieceMoveAndCount.number > pieceMoveAndCount.piecesToMove.length  // skj now!
+                onClick={pieceMoveAndCount.piecesToMove.length > 0
+                    && pieceMoveAndCount.number > pieceMoveAndCount.piecesToMove.length
                     && !sp.moveSquare
                     ? () => { setDisplayMessage('Click an active square') }
                     : handleClickSquare}
@@ -451,7 +432,7 @@ export function TakSpace({ spaces, setSpaces, takGameId, pieceMoveAndCount, setP
                         className={`gridSpan${piece.slice(0, 2)}`}
                         id={index + 1}
                         key={index}
-                        onClick={(pieceMoveAndCount.piecesToMove?.length > 0 && (pieceMoveAndCount?.number > pieceMoveAndCount.piecesToMove?.length)) // skj 6-5-2023
+                        onClick={(pieceMoveAndCount.piecesToMove?.length > 0 && (pieceMoveAndCount?.number > pieceMoveAndCount.piecesToMove?.length))
                             ? () => { setDisplayMessage('Click an active square') }
                             : handleNumberPieceMoveClick}
                     >
