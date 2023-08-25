@@ -213,8 +213,7 @@ function LaunchGame() {
     }
 
 
-
-    // ---------------------------------------------------------
+    // -- exit game DELETE ------------------------------------------------------
     async function deleteTakGameOnExit() {
         let deleteGameId
         if (takGameId) { deleteGameId = { id: takGameId } }
@@ -222,7 +221,8 @@ function LaunchGame() {
         if (deleteGameId) {
             try {
                 const res = await axios({
-                    url: '/takGame/deleteOnExit',
+                    // url: '/takGame/deleteOnExit',
+                    url: 'https://tak-game-mern.onrender.com/takGame/deleteOnExit',  // skj 8-25-2023
                     method: 'POST',  // skj, yes...using POST to delete
                     data: JSON.stringify(deleteGameId),
                     headers: {
@@ -235,6 +235,15 @@ function LaunchGame() {
             }
             catch (err) { console.log(err) }
         }
+        // delete localStorage
+        let prevSpacesCreator = JSON.parse(localStorage.getItem('prevSpacesCreator'))  // skj 8-25-2023
+        if (prevSpacesCreator) { localStorage.removeItem('prevSpacesCreator') }  // skj 8-25-2023
+        let prevSpacesJoiner = JSON.parse(localStorage.getItem('prevSpacesJoiner'))  // skj 8-25-2023
+        if (prevSpacesJoiner) { localStorage.removeItem('prevSpacesJoiner') }  // skj 8-25-2023
+        let takGameIdCreator = JSON.parse(localStorage.getItem('takGameIdCreator'))  // skj 8-25-2023
+        if (takGameIdCreator) { localStorage.removeItem('takGameIdCreator') }  // skj 8-25-2023
+        let takGameIdJoiner = JSON.parse(localStorage.getItem('takGameIdJoiner'))  // skj 8-25-2023
+        if (takGameIdJoiner) { localStorage.removeItem('takGameIdJoiner') }  // skj 8-25-2023
     }
 
     window.addEventListener('beforeunload', (event) => {
@@ -244,14 +253,18 @@ function LaunchGame() {
     })
 
     useEffect(() => {
+        if (!takGameId) {
+            localStorage.setItem('prevSpacesCreator', JSON.stringify(spaces))  // skj 8-25-2023
+            localStorage.setItem('takGameIdCreator', JSON.stringify('Local_Game'))  // skj 8-25-2023
+        }
+
         if (userLeaving) { deleteTakGameOnExit() }
         console.log('useEffect running')
         return () => { document.removeEventListener('beforeunload', setUserLeaving) }
     }, [userLeaving])
-    // ---------------------------------------------------
 
 
-
+    // -- start new game DELETE -------------------------------------------------
     async function deleteTakGame() {
         let deleteGameId
         if (takGameId) { deleteGameId = { id: takGameId } }
@@ -273,8 +286,18 @@ function LaunchGame() {
             }
             catch (err) { console.log(err) }
         }
+        // delete localStorage
+        let prevSpacesCreator = JSON.parse(localStorage.getItem('prevSpacesCreator'))  // skj 8-25-2023
+        if (prevSpacesCreator) { localStorage.removeItem('prevSpacesCreator') }  // skj 8-25-2023
+        let prevSpacesJoiner = JSON.parse(localStorage.getItem('prevSpacesJoiner'))  // skj 8-25-2023
+        if (prevSpacesJoiner) { localStorage.removeItem('prevSpacesJoiner') }  // skj 8-25-2023
+        let takGameIdCreator = JSON.parse(localStorage.getItem('takGameIdCreator'))  // skj 8-25-2023
+        if (takGameIdCreator) { localStorage.removeItem('takGameIdCreator') }  // skj 8-25-2023
+        let takGameIdJoiner = JSON.parse(localStorage.getItem('takGameIdJoiner'))  // skj 8-25-2023
+        if (takGameIdJoiner) { localStorage.removeItem('takGameIdJoiner') }  // skj 8-25-2023
     }
 
+    // -- start new game --------------------------------------------------------
     async function handleNewGameClick(e) {
         deleteTakGame()
 
@@ -288,18 +311,27 @@ function LaunchGame() {
             if (res) {
                 setSpaces(res.data.takSpaces)
                 setTakGameId(res.data._id)
+                // copy data to localStorage
+                localStorage.setItem('prevSpacesCreator', JSON.stringify(res.data.takSpaces))  // skj 8-25-2023
+                localStorage.setItem('takGameIdCreator', JSON.stringify(res.data._id))  // skj 8-25-2023   
             }
         } catch (e) {
             console.log(`axios_new_game error: ${e}`)
         }
     }
 
-    // '64d8e871dc1cec30d061ce91'
-    async function handleGetGame(e) {
+    // -- join game -------------------------------------------------------------
+    async function handleJoinGame(e) {
         e.preventDefault()
 
         let id = gameId.current?.value
         console.log(id)
+
+        // delete creator localStorage
+        let prevSpacesCreator = JSON.parse(localStorage.getItem('prevSpacesCreator'))  // skj 8-25-2023
+        if (prevSpacesCreator) { localStorage.removeItem('prevSpacesCreator') }  // skj 8-25-2023
+        let takGameIdCreator = JSON.parse(localStorage.getItem('takGameIdCreator'))  // skj 8-25-2023
+        if (takGameIdCreator) { localStorage.removeItem('takGameIdCreator') }  // skj 8-25-2023
 
         try {
             const res = await axios({
@@ -308,9 +340,12 @@ function LaunchGame() {
                 method: 'GET'
             })
             if (res) {
-                console.log(res.data)
+                // console.log(res.data)
                 setSpaces(res.data.takSpaces)
                 setTakGameId(res.data._id)
+                // copy data to localStorage
+                localStorage.setItem('prevSpacesJoiner', JSON.stringify(res.data.takSpaces))  // skj 8-25-2023
+                localStorage.setItem('takGameIdJoiner', JSON.stringify(res.data._id))   // skj 8-25-2023
             }
         } catch (e) {
             console.log(`axios_get_game error: ${e}`)
@@ -362,7 +397,7 @@ function LaunchGame() {
                         placeholder="game id goes here"
                         ref={gameId}
                     />
-                    <button onClick={handleGetGame} style={{ marginLeft: '10px' }}>Join New Tak Game</button>
+                    <button onClick={handleJoinGame} style={{ marginLeft: '10px' }}>Join New Tak Game</button>
                 </form>
                 <div style={{ backgroundColor: 'green', padding: '1em' }}>
                     <CopyField takGameId={takGameId} />
